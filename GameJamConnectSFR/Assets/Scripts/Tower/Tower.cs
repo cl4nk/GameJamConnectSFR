@@ -1,16 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour {
+namespace Assets.Scripts.Tower
+{
+    public class Tower : MonoBehaviour
+    {
+        private float m_maxHeight;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        public float MaxHeight
+        {
+            get { return m_maxHeight; }
+        }
+
+        private Piece m_fallingPiece;
+        protected List<Piece> m_currentPieces = new List<Piece>();
+
+        protected void LateUpdate()
+        {
+            m_maxHeight = float.MinValue;
+            foreach (Piece currentPiece in m_currentPieces)
+            {
+                m_maxHeight = Mathf.Max(m_maxHeight, currentPiece.Collider.bounds.max.y);
+            }
+        }
+    }
 }

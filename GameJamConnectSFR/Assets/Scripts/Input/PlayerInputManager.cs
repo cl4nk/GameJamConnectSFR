@@ -24,8 +24,8 @@ namespace Project.Scripts.Input
         public const string AxisFormat = "{0}_{1}";
 
         private string m_playerControllerPath = "Controllers/DefaultPlayerController";
-        private MonoBehaviour m_playerControllerPrefab;
-        private MonoBehaviour[] m_inputs;
+        private PlayerController m_playerControllerPrefab;
+        private PlayerController[] m_inputs;
         private readonly List<int> m_sortByRegisterTime = new List<int>();
         private bool[] m_used;
 
@@ -44,7 +44,7 @@ namespace Project.Scripts.Input
             DontDestroyOnLoad(gameObject);
 
             m_playerControllerPrefab = Resources.Load<MonoBehaviour>(m_playerControllerPath);
-            m_inputs = new MonoBehaviour[MaxGamepadCount];
+            m_inputs = new PlayerController[MaxGamepadCount];
             m_used = new bool[MaxGamepadCount];
 
             Cursor.visible = false;
@@ -84,7 +84,7 @@ namespace Project.Scripts.Input
                     {
                         m_inputs[i] = Instantiate(m_playerControllerPrefab, transform);
                         m_inputs[i].gameObject.name = "PlayerController_" + i;
-                        //m_inputs[i].InputNum = i;
+                        m_inputs[i].InputNum = i;
                         OnInputFound.Invoke(i);
                     }
                     else
@@ -100,7 +100,7 @@ namespace Project.Scripts.Input
             return m_inputs[index] != null;
         }
 
-        public bool GetFreeController(out MonoBehaviour controller)
+        public bool GetFreeController(out PlayerController controller)
         {
             foreach (int i in m_sortByRegisterTime)
             {
@@ -116,13 +116,11 @@ namespace Project.Scripts.Input
             return false;
         }
 
-        public int Register(MonoBehaviour input)
+        public int Register(PlayerController input)
         {
             Debug.Assert(input != null);
 
-            int index = 0
-                //input.InputNum
-                ;
+            int index = input.InputNum;
 
             if (m_inputs[index] == null || m_inputs[index] == input)
             {
