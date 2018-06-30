@@ -33,7 +33,7 @@ namespace Project.Scripts.Controller
 	            controller.EnableControl = enabled;
 	            if (enabled == false && controller.PossessedPawn)
 	            {
-	                controller.PossessedPawn.Reset();
+	            //    controller.PossessedPawn.Reset();
                 }
 	        }
 	    }
@@ -84,7 +84,7 @@ namespace Project.Scripts.Controller
 		{
 		    if (AttachOnEnable && PossessedPawn == null)
 		    {
-                AttachTo(DefaultPawn);
+          //      AttachTo(DefaultPawn);
 		    }
         }
 
@@ -131,7 +131,7 @@ namespace Project.Scripts.Controller
 	            ControllerUpdate();
 	        }
 	    }
-
+/*
 		public void AttachTo( Pawn pawn )
 		{
 			if ( pawn && pawn != PossessedPawn )
@@ -144,21 +144,21 @@ namespace Project.Scripts.Controller
 				Possess( PossessedPawn );
 			}
 		}
-
+        
 		protected virtual void Possess( Pawn pawn )
 		{
 		}
-
+        */
 		public void Detach()
 		{
 			if ( PossessedPawn )
 			{
 				Unpossess();
 
-                if ( PossessedPawn.PossessingController == this )
+             /*   if ( PossessedPawn.PossessingController == this )
 				{
 					PossessedPawn.PossessingController = null;
-				}
+				}*/
 
 				PossessedPawn = null;
 			}
@@ -172,7 +172,7 @@ namespace Project.Scripts.Controller
 	    {
 	        if (PossessedPawn)
 	        {
-	            PossessedPawn.Jump();
+	         //   PossessedPawn.Jump();
 	        }
 	    }
 

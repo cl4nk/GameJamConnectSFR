@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections;
-using Project.Scripts.Character;
 using Project.Scripts.Input;
 using Project.Scripts.StateMachineBehaviour;
 using UnityEngine;
 using UnityEngine.Events;
-using XInputDotNetPure;
+//using XInputDotNetPure;
 
 namespace Project.Scripts.Controller
 {
@@ -22,9 +21,9 @@ namespace Project.Scripts.Controller
         }
 
         [Serializable]
-        public class TowerctionButton : ActionButton
+        public class TowerActionButton : ActionButton
         {
-            public ArmedPawn.ArmedPawnAction Action;
+            //public ArmedPawn.ArmedPawnAction Action;
         }
 
         [Serializable]
@@ -44,7 +43,7 @@ namespace Project.Scripts.Controller
         public bool UseSuffix = true;
 
         [SerializeField] private ActionButton m_pawnActionButton;
-        [SerializeField] private ArmedPawnActionButton[] m_armedPawnActionButtons;
+        [SerializeField] private TowerActionButton[] m_armedPawnActionButtons;
         [SerializeField] private GenericActionButton[] m_genericActionButtons;
 
 
@@ -61,7 +60,7 @@ namespace Project.Scripts.Controller
 
                     m_pawnActionButton.Key = GamepadInput.GetKeyCode(m_pawnActionButton.Button, m_inputNum);
 
-                    foreach (ArmedPawnActionButton handler in m_armedPawnActionButtons)
+                    foreach (TowerActionButton handler in m_armedPawnActionButtons)
                     {
                         handler.Key = GamepadInput.GetKeyCode(handler.Button, m_inputNum);
                     }
@@ -76,7 +75,7 @@ namespace Project.Scripts.Controller
 
         public int CorrectedInputNum { get; private set; }
 
-        private ArmedPawn m_armedPawn;
+        //private ArmedPawn m_armedPawn;
 
         protected override void Awake()
         {
@@ -84,7 +83,7 @@ namespace Project.Scripts.Controller
 
             m_pawnActionButton.Key = GamepadInput.GetKeyCode(m_pawnActionButton.Button, m_inputNum);
 
-            foreach (ArmedPawnActionButton handler in m_armedPawnActionButtons)
+            foreach (TowerActionButton handler in m_armedPawnActionButtons)
             {
                 handler.Key = GamepadInput.GetKeyCode(handler.Button, m_inputNum);
             }
@@ -97,7 +96,7 @@ namespace Project.Scripts.Controller
 
         public void Start()
         {
-            InputNum = PlayerInputManager.Instance.Register(this);
+            //InputNum = PlayerInputManager.Instance.Register(this);
         }
 
         protected override void OnDestroy()
@@ -113,11 +112,11 @@ namespace Project.Scripts.Controller
 
                 if (InputNum > -1 && InputNum < 5)
                 {
-                    GamePad.SetVibration((PlayerIndex)InputNum, 0.0f, 0.0f);
+                    //GamePad.SetVibration((PlayerIndex)InputNum, 0.0f, 0.0f);
                 }
             }
         }
-
+        /*
         protected override void Possess(Pawn pawn)
         {
             PlayerInputManager.Instance.SetUsed(this, true);
@@ -125,16 +124,16 @@ namespace Project.Scripts.Controller
 
             m_armedPawn = pawn as ArmedPawn;
         }
-
+        */
         protected override void Unpossess()
         {
             PlayerInputManager.Instance.SetUsed(this, false);
-            m_armedPawn = null;
+         //   m_armedPawn = null;
         }
 
         protected override void ControllerUpdate()
         {
-            PossessedPawn.InputMove(new Vector2(UnityEngine.Input.GetAxis(GetInputName(HorizontalAxis)), UnityEngine.Input.GetAxis(GetInputName(VerticalAxis))));
+       /*     PossessedPawn.InputMove(new Vector2(UnityEngine.Input.GetAxis(GetInputName(HorizontalAxis)), UnityEngine.Input.GetAxis(GetInputName(VerticalAxis))));
 
             if (UnityEngine.Input.GetKeyDown(m_pawnActionButton.Key))
             {
@@ -143,7 +142,7 @@ namespace Project.Scripts.Controller
 
             if (m_armedPawn)
             {
-                foreach (ArmedPawnActionButton handler in m_armedPawnActionButtons)
+                foreach (TowerActionButton handler in m_armedPawnActionButtons)
                 {
                     if (handler.Pressed)
                     {
@@ -180,7 +179,7 @@ namespace Project.Scripts.Controller
                     handler.OnPressed.Invoke();
                     handler.Pressed = true;
                 }
-            }
+            }*/
         }
 
         protected Coroutine m_vibrationCoroutine;
@@ -205,9 +204,9 @@ namespace Project.Scripts.Controller
 
         protected IEnumerator VibrationCoroutine(float duration, float leftPower, float rightPower)
         {
-            GamePad.SetVibration((PlayerIndex)InputNum, leftPower, rightPower);
+            //GamePad.SetVibration((PlayerIndex)InputNum, leftPower, rightPower);
             yield return new WaitForSeconds(duration);
-            GamePad.SetVibration((PlayerIndex)InputNum, 0.0f, 0.0f);
+            //GamePad.SetVibration((PlayerIndex)InputNum, 0.0f, 0.0f);
             m_vibrationCoroutine = null;
         }
 

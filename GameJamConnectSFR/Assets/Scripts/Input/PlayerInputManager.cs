@@ -24,8 +24,8 @@ namespace Project.Scripts.Input
         public const string AxisFormat = "{0}_{1}";
 
         private string m_playerControllerPath = "Controllers/DefaultPlayerController";
-        private PlayerController m_playerControllerPrefab;
-        private PlayerController[] m_inputs;
+        //private PlayerController m_playerControllerPrefab;
+        //private PlayerController[] m_inputs;
         private readonly List<int> m_sortByRegisterTime = new List<int>();
         private bool[] m_used;
 
@@ -43,8 +43,8 @@ namespace Project.Scripts.Input
 
             DontDestroyOnLoad(gameObject);
 
-            m_playerControllerPrefab = Resources.Load<MonoBehaviour>(m_playerControllerPath);
-            m_inputs = new PlayerController[MaxGamepadCount];
+       //     m_playerControllerPrefab = Resources.Load<MonoBehaviour>(m_playerControllerPath);
+        //    m_inputs = new PlayerController[MaxGamepadCount];
             m_used = new bool[MaxGamepadCount];
 
             Cursor.visible = false;
@@ -66,7 +66,7 @@ namespace Project.Scripts.Input
 
             for (int i = 0; i < MaxGamepadCount; ++i)
             {
-                //Test if has no input on index i
+   /*             //Test if has no input on index i
                 if (i >= joystickNames.Length || joystickNames[i].Trim().Length == 0)
                 {
                     //If no input found by Unity bu we have got a Player Controller...
@@ -91,15 +91,15 @@ namespace Project.Scripts.Input
                     {
                         OnPressedOnInputFound.Invoke(i);
                     }
-                }
+                }*/
             }
         }
 
         public bool HasPlayerController(int index)
         {
-            return m_inputs[index] != null;
+            return false;// m_inputs[index] != null;
         }
-
+        /*
         public bool GetFreeController(out PlayerController controller)
         {
             foreach (int i in m_sortByRegisterTime)
@@ -136,11 +136,11 @@ namespace Project.Scripts.Input
             Destroy(input.gameObject);
             throw new IndexOutOfRangeException("Input already exits");
         }
-
+        */
         public void Unregister(MonoBehaviour input)
         {
             Debug.Assert(input != null);
-
+/*
             for (int i = 0; i < m_inputs.Length; ++i)
             {
                 if (m_inputs[i] == input)
@@ -153,24 +153,24 @@ namespace Project.Scripts.Input
                     OnInputLost.Invoke(i);
                     return;
                 }
-            }
+            }*/
         }
 
         public void SetUsed(MonoBehaviour controller, bool used)
         {
-            for (int i = 0; i < m_inputs.Length; ++i)
+        /*    for (int i = 0; i < m_inputs.Length; ++i)
             {
                 if (m_inputs[i] == controller)
                 {
                     m_used[i] = used;
                     return;
                 }
-            }
+            }*/
         }
 
         public MonoBehaviour GetPlayerController(int index)
         {
-            return m_inputs[index];
+            return null;// m_inputs[index];
         }
 
         public int GetControllerIndexByRegisterTime(int index)
@@ -189,20 +189,20 @@ namespace Project.Scripts.Input
 
         public void ForceControllerDestroy(int index)
         {
-            if (m_inputs[index])
+        /*    if (m_inputs[index])
             {
                 Destroy(m_inputs[index]);
-            }
+            }*/
         }
 
         public void ResetAll()
         {
             for (int i = 0; i < MaxGamepadCount; ++i)
             {
-                if (m_inputs[i] != null)
+            /*    if (m_inputs[i] != null)
                 {
                     Unregister(m_inputs[i]);
-                }
+                }*/
             }
         }
     }
