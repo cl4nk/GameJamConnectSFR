@@ -782,7 +782,7 @@ namespace Project.Scripts.Utility
             }
             else
             {
-                SendSignal.Register(animator, name, this);
+               // SendSignal.Register(animator, name, this);
             }
         }
 
